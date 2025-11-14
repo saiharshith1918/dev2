@@ -8,14 +8,15 @@ pipeline {
             }
         }
 
-        stage('Push Docker Image') {
+       stage('Push Docker Image') {
             steps {
-                withCredentials([string(credentialsId: "dockerhub-pass", variable: "DOCKERHUB_PASS")]) {
-                    sh 'echo $DOCKERHUB_PASS | docker login -u harshith1918 --password-stdin'
+                withCredentials([usernamePassword(credentialsId: 'dockerhub-pass', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
+                    sh 'echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin'
                     sh 'docker push harshith1918/jenkins-demo2:v1'
                 }
             }
         }
+
 
         stage('Deploy to Kubernetes') {
             steps {
