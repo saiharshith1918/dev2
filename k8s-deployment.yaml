@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dev2-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: dev2
+  template:
+    metadata:
+      labels:
+        app: dev2
+    spec:
+      containers:
+        - name: dev2
+          image: harshith1918/dev2:latest
+          ports:
+            - containerPort: 3033
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: dev2-service
+spec:
+  selector:
+    app: dev2
+  type: NodePort
+  ports:
+    - port: 3033
+      targetPort: 3033
+      nodePort: 30033

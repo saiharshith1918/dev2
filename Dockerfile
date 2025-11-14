@@ -13,3 +13,5 @@ COPY . .
 # Expose and run
 EXPOSE 3033
 CMD ["npm", "start"]
+
+
